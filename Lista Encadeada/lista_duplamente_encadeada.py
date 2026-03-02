@@ -41,6 +41,28 @@ class ListaDuplamenteEncadeada:
         self.primeiro = self.primeiro.proximo
         return temp
     
+    
+    def excluir_posicao(self, valor):
+        atual = self.primeiro
+        while atual.valor != valor:
+            atual = atual.proximo
+            if atual == None:
+                print("Valor não encontrado")
+                return None
+        if atual == self.primeiro:
+            self.primeiro = atual.proximo
+        else:
+            atual.anterior.proximo = atual.proximo
+            
+        if atual == self.ultimo:
+            self.ultimo = atual.anterior
+        else:
+            atual.proximo.anterior = atual.anterior
+        return atual
+            
+            
+        
+    
     def excluir_final(self):
         temp = self.ultimo
         if self.primeiro.proximo == None:
