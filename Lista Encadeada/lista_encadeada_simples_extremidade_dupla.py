@@ -31,9 +31,18 @@ class ListaEncadeadaExtremidadeDupla:
             atual.mostrar_no()
             atual = atual.proximo
 
+    def insere_final(self, valor):
+        novo = No(valor)
+        if self.__lista_vazia():
+            self.primeiro = novo
+        else:
+            self.ultimo.proximo = novo
+        self.ultimo = novo
+
 
 lista = ListaEncadeadaExtremidadeDupla()
 
 lista.insere_inicio((10))
 lista.insere_inicio((20))
+lista.insere_final((30))
 lista.mostrar()
