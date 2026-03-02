@@ -31,7 +31,42 @@ class ListaEncadeada:
         temp = self.primeiro
         self.primeiro = self.primeiro.proximo
         
-        return temp            
+        return temp
+    
+    def pesquisa(self, valor):
+        if self.pŕimeiro == None:
+            print("Lista vazia")
+            return None
+        
+        atual = self.primeiro
+        while atual.valor != valor:
+            if atual.proximo == None:
+                print("Valor não encontrado")
+                return None
+            else:
+                atual = atual.proximo
+        return atual
+    
+    
+    def excluir_posicao(self, valor):
+        atual = self.primeiro
+        anterior = self.primeiro
+        while(atual.valor != valor):
+            if atual.proximo == None:
+                print("Valor não encontrado")
+                return None
+            else:
+                anterior = atual
+                atual = atual.proximo
+        if atual == self.primeiro:
+            self.primeiro = self.proximo
+            anterior.proximo = atual.proximo
+            
+        return atual
+            
+            
+        
+        
             
 lista = ListaEncadeada()
 lista.insere_inicio(10)
