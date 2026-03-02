@@ -39,6 +39,16 @@ class ListaEncadeadaExtremidadeDupla:
             self.ultimo.proximo = novo
         self.ultimo = novo
 
+    def excluir_inicio(self):
+        if self.__lista_vazia():
+            print("Lista vazia, não é possível excluir mais elementos")
+            return None
+        temp = self.primeiro
+        if self.primeiro.proximo == None:
+            self.ultimo = None
+        self.primeiro = self.primeiro.proximo
+        return temp
+
 
 lista = ListaEncadeadaExtremidadeDupla()
 
