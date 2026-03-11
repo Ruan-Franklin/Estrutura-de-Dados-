@@ -11,5 +11,5 @@ def bubble_sort(vetor):
     return vetor 
                 
 
-bubble_sort = (np.array([15, 34, 8,3 ]))
+bubble_sort = (np. array([15, 34, 8,3 ]))
 print(bubble_sort)
