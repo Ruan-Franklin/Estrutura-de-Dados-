@@ -46,6 +46,18 @@ class ABP:
                 return None
         return atual
                 
+    
+    def pre_ordem(self, no):
+        if no != None:
+            print(no.valor)
+            self.pre_ordem(no.esquerda)
+            self.pre_ordem(no.direita)
+            
+    def em_ordem(self, no):
+        if no != None:
+            self.em_ordem(no.esquerda)
+            print(no.valor)
+            self.em_ordem(no.direita)
             
     
 
