@@ -35,6 +35,18 @@ class ABP:
                 if atual == None:
                     pai.direita = novo
                     return
+    def pesquisar(self, valor):
+        atual = self.raiz
+        while atual.valor != valor:
+            if valor < atual.valor:
+                atual = atual.esquerda
+            else:
+                atual = atual.direita
+            if atual == None:
+                return None
+        return atual
+                
+            
     
 
 arvore = ABP()
@@ -51,4 +63,4 @@ arvore.inserir(61)
 arvore.inserir(84)
 arvore.inserir(79)
 
-print("Terminou?")
+arvore.pesquisar(30).mostra_no()
