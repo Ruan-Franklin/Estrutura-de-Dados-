@@ -60,6 +60,12 @@ class ABP:
             self.em_ordem(no.direita)
             
     
+    def pos_ordem(self, no):
+        self.pos_ordem(no.esquerda)
+        self.pos_ordem(no.direita)
+        print(no.valor)
+            
+    
 
 arvore = ABP()
 arvore.inserir(53)
