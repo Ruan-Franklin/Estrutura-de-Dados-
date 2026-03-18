@@ -5,7 +5,7 @@ class No:
         self.direita = None
     
     def mostra_no(self):
-        print(self.valor)
+        print("{", self.valor, "}", end="")
 
 class ABP:
     def __init__(self):
@@ -20,6 +20,7 @@ class ABP:
         if self._esta_vazia():
             self.raiz = novo
             atual = self.raiz
+            return
         else:
             atual = self.raiz
         while True:
@@ -34,8 +35,7 @@ class ABP:
                 if atual == None:
                     pai.direita = novo
                     return
-        
-
+    
 
 arvore = ABP()
 arvore.inserir(53)
@@ -50,4 +50,5 @@ arvore.inserir(72)
 arvore.inserir(61)
 arvore.inserir(84)
 arvore.inserir(79)
+
 print("Terminou?")
