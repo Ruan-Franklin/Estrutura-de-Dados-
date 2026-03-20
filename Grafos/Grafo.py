@@ -1,3 +1,37 @@
+import numpy as np
+class Pilha:
+    def __init__(self, capacidade):
+        self.__capacidade = capacidade
+        self .__topo = -1
+        self.__valores = np.empty(self.__capacidade, dtype=object)
+        
+    def pilha_cheia(self):
+        return self.__topo == self.__capacidade - 1
+    
+    def pilha_vazia(self):
+        return self.__topo == -1
+    
+    def empilhar(self, valor):
+        if not self.pilha_cheia():
+            self.__topo += 1
+            self.__valores[self.__topo] = valor
+        else:
+            print('Pilha cheia')
+            
+    def desempilhar(self):
+        if self.pilha_vazia():
+            print('Pilha vazia')
+            return None
+        else:
+            temp = self.__valores[self.__topo]
+            self.__topo -= 1
+            return temp
+    def ver_topo(self):
+        if self.pilha_vazia():
+            print('Pilha vazia')
+            return None
+        else:
+            return self.__valores[self.__topo]
 class Vertice:
     
     def __init__(self, rotulo):
@@ -78,3 +112,25 @@ class Grafo:
   bucharest.adiciona_adjacente(Aresta(fagaras, 211))
   bucharest.adiciona_adjacente(Aresta(pitesti, 101))
   bucharest.adiciona_adjacente(Aresta(giurgiu, 90))
+  
+  
+class BuscaEmProfundidade:
+    def __init__(self, inicio):
+        self.inicio = inicio
+        self.inicio.visitado = True 
+        self.pilha = Pilha(20)
+        self.pilha.empilhar(self.inicio)
+        
+    def buscar(self):
+        topo = self.pilha.ver_topo()
+        print(f'Topo: {topo.rotulo}')
+        for aresta in topo.adjacentes:
+            print(f"Topo é: {topo.rotulo}, aresta é: {aresta.vertice.rotulo}, já visitado? {aresta.vertice.visitado}")
+            if aresta.vertice.visitado == False:
+                aresta.vertice.visitado = True
+                self.pilha.empilhar(aresta.vertice)
+                print(f"Empilhando {aresta.vertice.rotulo}")
+                self.buscar()
+            print(f"Desempilhando {topo.rotulo}")
+            print()
+            
