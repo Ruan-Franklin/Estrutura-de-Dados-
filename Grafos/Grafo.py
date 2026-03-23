@@ -1,4 +1,31 @@
 import numpy as np
+
+class VetorOrdenado:
+    def __init__(self, capacidade):
+        self.__capacidade = capacidade
+        self.__tamanho = 0
+        self.__valores = np.empty(self.__capacidade, dtype=object)
+        
+    def vetor_cheio(self):
+        return self.__tamanho == self.__capacidade
+    
+    def vetor_vazio(self):
+        return self.__tamanho == 0
+    
+    def inserir(self, valor):
+        if not self.vetor_cheio():
+            i = self.__tamanho - 1
+            while i >= 0 and self.__valores[i].distancia_objetivo > valor.distancia_objetivo:
+                self.__valores[i + 1] = self.__valores[i]
+                i -= 1
+            self.__valores[i + 1] = valor
+            self.__tamanho += 1
+        else:
+            print('Vetor cheio')
+            
+    def imprimer(self):
+        for i in range(self.__tamanho):
+            print(self.__valores[i].rotulo, self.__valores[i].distancia_objetivo) 
 class Pilha:
     def __init__(self, capacidade):
         self.__capacidade = capacidade
@@ -34,8 +61,9 @@ class Pilha:
             return self.__valores[self.__topo]
 class Vertice:
     
-    def __init__(self, rotulo):
+    def __init__(self, rotulo, distancia_objetivo):
         self.rotulo = rotulo
+        self.distancia_objetivo = distancia_objetivo
         self.visitado = False 
         self.adjacentes = []
     
@@ -52,20 +80,20 @@ class Aresta:
         
 
 class Grafo:
-  arad = Vertice('Arad')
-  zerind = Vertice('Zerind')
-  oradea = Vertice('Oradea')
-  sibiu = Vertice('Sibiu')
-  timisoara = Vertice('Timisoara')
-  lugoj = Vertice('Lugoj')
-  mehadia = Vertice('Mehadia')
-  dobreta = Vertice('Dobreta')
-  craiova = Vertice('Craiova')
-  rimnicu = Vertice('Rimnicu')
-  fagaras = Vertice('Fagaras')
-  pitesti = Vertice('Pitesti')
-  bucharest = Vertice('Bucharest')
-  giurgiu = Vertice('Giurgiu')
+  arad = Vertice('Arad', 366)
+  zerind = Vertice('Zerind', 374)
+  oradea = Vertice('Oradea', 380)
+  sibiu = Vertice('Sibiu', 253)
+  timisoara = Vertice('Timisoara', 329)
+  lugoj = Vertice('Lugoj', 244)
+  mehadia = Vertice('Mehadia', 241)
+  dobreta = Vertice('Dobreta', 242)
+  craiova = Vertice('Craiova', 160)
+  rimnicu = Vertice('Rimnicu', 193)
+  fagaras = Vertice('Fagaras', 178)
+  pitesti = Vertice('Pitesti', 98)
+  bucharest = Vertice('Bucharest', 0)
+  giurgiu = Vertice('Giurgiu', 77)
 
   arad.adiciona_adjacente(Aresta(zerind, 75))
   arad.adiciona_adjacente(Aresta(sibiu, 140))
@@ -134,3 +162,26 @@ class BuscaEmProfundidade:
             print(f"Desempilhando {topo.rotulo}")
             print()
             
+
+class Gulosa:
+    def __init__(self, objetivo):
+        self.objetivo = objetivo
+        self.encontrado = False
+        
+    def buscar(self, vertice):
+        print("------------")
+        print(f'Vertice atual: {vertice.rotulo}')
+        vertice.visitado = True
+        if vertice == self.objetivo:
+            self.encontrado = True        
+        else:
+            vetor_ordenado = VetorOrdenado(len(vertice.adjacentes))
+            for adjacente in vertice.adjacentes:
+                if not adjacente.vertice.visitado:
+                    adjacente.vertice.visitado = True
+                    vetor_ordenado.inserir(adjacente.vertice)
+                    
+            if vetor_ordenado.__valores[0] is not None:
+                self.buscar(vetor_ordenado.__valores[0])
+                
+                
